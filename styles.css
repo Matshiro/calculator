@@ -31,10 +31,12 @@ main{
 }
 #upperText, #bottomText{
     margin: 0.5rem 1rem;
+    height: 30px;
     font-size: 30px;
 }
 #bottomText{
     margin-right: 0.8rem;
+    height: 60px;
     font-size: 60px;
 }
 #numpad{
