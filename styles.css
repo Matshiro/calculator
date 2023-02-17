@@ -1,0 +1,40 @@
+*{
+    background-color: #CDCDCD;
+    margin: 0;
+    padding: 0;
+}
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+#calculator{
+    margin-top: 5rem; 
+    width: 30rem;
+    height: 36rem;
+    border: 1px solid grey;
+}
+#display{
+    background-color: #ABABAB;
+    height: 8rem;
+    margin: 1rem;
+    margin-bottom: 0;
+}
+#numbersOnDisplay{
+    
+}
+#numpad{
+    display: grid;
+    margin: 2rem;
+    grid-template-columns: 1fr 1fr 1fr 0fr;
+    grid-template-rows: 5rem 5rem 5rem 5rem 0px;
+}
+.smallButton{
+    height: 4rem;
+    width: 4rem;
+}
+.bigButton{
+    height: 9rem;
+    width: 4rem;
+}
