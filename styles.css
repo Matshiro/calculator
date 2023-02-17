@@ -3,22 +3,22 @@
     padding: 0;
 }
 main{
-    background-color: #c3d8eb;
+    background-image: url(./minikroliczki.jpg);
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
 #calculator{
-    background-color: #4568c1;
-    margin-top: 5rem; 
+    background-color: #c2d0f7;
+    margin: 5rem; 
     width: 24rem;
     height: 36rem;
     border: 1px solid black;
     border-radius: 5px;
 }
 #display{
-    background-color: #eeeeee;
+    background-image: url(./kroliczkilyzka.jpg);
     border: 1px solid black;
     border-radius: 5px;
     height: 8rem;
@@ -40,7 +40,6 @@ main{
     font-size: 60px;
 }
 #numpad{
-    background-color: #4568c1;
     display: grid;
     margin: 2rem 2.5rem;
     grid-template-columns: 5rem 5rem 5rem 5rem;
@@ -70,14 +69,22 @@ button:hover{
 }
 
 #ceButton{
-    background-color: #c65d5d;
+    background-color: #d58484;
 }
 #ceButton:hover{
-    background-color: #a43b3b;
+    background-color: #b36262;
 }
 #cButton{
-    background-color: #c3bf73;
+    background-color: #ccc985;
 }
 #cButton:hover{
-    background-color: #a19d51;
+    background-color: #bbb874;
+}
+footer{
+    background-image: url(./kroliczki.jpg);
+    height: 2.9rem;
+    text-align: center;
+}
+p{
+    margin-top: 1rem;
 }
