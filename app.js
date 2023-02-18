@@ -3,10 +3,10 @@ const resultWindow = document.getElementById("bottomText");
 const lastResultWindow = document.getElementById("upperText");
 let functionButtonUsed = false;
 let decimalButtonUsed = false;
-let valueOne;
-let valueSecond;
-let operator;
-
+let valueOne = 0;
+let valueSecond = 0;
+let operator = "";
+let resetted = false;
 
 allButtons.addEventListener('click', (event) =>{
     if(!event.target.closest("button")) return;
@@ -14,13 +14,15 @@ allButtons.addEventListener('click', (event) =>{
     const key = event.target;
     const keyValue = key.textContent;
     
-    if(key.classList.contains("numberButton")){
+
+    if(key.classList.contains("numberButton")){       
         if(decimalButtonUsed == true && key.id == "decimalButton") return;
         if(lastResultWindow.textContent.includes("=")){
             resetAll();
         }
-        if(valueOne > 0){
+        if(valueOne > 0 && operator != "" && resetted == false){
             resultWindow.textContent = "0";
+            resetted = true;
         }
         if(resultWindow.textContent === "0"){
             if(key.id == "decimalButton"){
@@ -29,6 +31,8 @@ allButtons.addEventListener('click', (event) =>{
             resultWindow.textContent = keyValue;
         }
         else{
+            console.log(resultWindow.textContent.length);
+            if(resultWindow.textContent.length >= 7) return;
             resultWindow.textContent += keyValue;
         }
         if(key.id == "decimalButton"){
@@ -36,6 +40,7 @@ allButtons.addEventListener('click', (event) =>{
         }
     }
     else if(key.classList.contains("functionButton")){
+        tooMany = false;
         if(lastResultWindow.textContent.includes("=")){
             operator = keyValue;
             lastResultWindow.textContent = valueOne + operator;
@@ -60,11 +65,13 @@ allButtons.addEventListener('click', (event) =>{
         resultWindow.textContent = "0";
         valueSecond = 0;
         decimalButtonUsed = false;
+        resetted = false;
     }
     else if(key.id == "cButton"){
         resetAll();
     }
     else if(key.id == "equalsButton"){
+        resetted = false;
         if(lastResultWindow.textContent.includes("=")){
             valueOne = parseInt(resultWindow.textContent);
         }
@@ -85,6 +92,7 @@ function resetAll(){
     functionButtonUsed = false;
     decimalButtonUsed = false;
     changedOperator = false;
+    resetted = false;
 }
 
 function calculate(){
