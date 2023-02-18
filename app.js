@@ -7,6 +7,7 @@ let valueOne = 0;
 let valueSecond = 0;
 let operator = "";
 let resetted = false;
+let inputLimit = 9;
 
 allButtons.addEventListener('click', (event) =>{
     if(!event.target.closest("button")) return;
@@ -20,24 +21,26 @@ allButtons.addEventListener('click', (event) =>{
         if(lastResultWindow.textContent.includes("=")){
             resetAll();
         }
-        if(valueOne > 0 && operator != "" && resetted == false){
+        if(key.id == "decimalButton"){
+            decimalButtonUsed = true;
+        }
+        if(valueOne > 0 && operator != "" && resetted == false||
+           valueOne < 0 && operator != "" && resetted == false){
             resultWindow.textContent = "0";
             resetted = true;
         }
-        if(resultWindow.textContent === "0"){
+        if(resultWindow.textContent == "0"){
             if(key.id == "decimalButton"){
-                resultWindow.textContent += keyValue;
+                resultWindow.textContent = 0 + keyValue;
+                return;
             }
             resultWindow.textContent = keyValue;
         }
         else{
-            console.log(resultWindow.textContent.length);
-            if(resultWindow.textContent.length >= 7) return;
+            if(resultWindow.textContent.length >= inputLimit) return;
             resultWindow.textContent += keyValue;
         }
-        if(key.id == "decimalButton"){
-            decimalButtonUsed = true;
-        }
+        
     }
     else if(key.classList.contains("functionButton")){
         tooMany = false;
@@ -48,12 +51,12 @@ allButtons.addEventListener('click', (event) =>{
         if(key.id != "plusminusButton" && functionButtonUsed == false){
             lastResultWindow.textContent = resultWindow.textContent + keyValue;
             functionButtonUsed = true;
-            valueOne = parseInt(resultWindow.textContent);
+            valueOne = parseFloat(resultWindow.textContent);
             operator = keyValue;
             decimalButtonUsed = false;
         }
         else if(key.id == "plusminusButton"){
-            if(parseInt(resultWindow.textContent) > 0){
+            if(parseFloat(resultWindow.textContent) > 0){
                 resultWindow.textContent = Math.abs(resultWindow.textContent) * -1;
             }
             else{
@@ -73,12 +76,12 @@ allButtons.addEventListener('click', (event) =>{
     else if(key.id == "equalsButton"){
         resetted = false;
         if(lastResultWindow.textContent.includes("=")){
-            valueOne = parseInt(resultWindow.textContent);
+            valueOne = parseFloat(resultWindow.textContent);
         }
         else{
-            valueSecond = parseInt(resultWindow.textContent);
+            valueSecond = parseFloat(resultWindow.textContent);
         }
-        calculate();
+        if(valueOne != 0) calculate();
     }
 }
 );
@@ -96,15 +99,22 @@ function resetAll(){
 }
 
 function calculate(){
-    if(operator == "+") resultWindow.textContent = valueOne + valueSecond;
-    if(operator == "-") resultWindow.textContent = valueOne - valueSecond;
-    if(operator == "*") resultWindow.textContent = valueOne * valueSecond;
+    let resultBeforeCheck
+    if(operator == "+") resultBeforeCheck = valueOne + valueSecond;
+    if(operator == "-") resultBeforeCheck = valueOne - valueSecond;
+    if(operator == "*") resultBeforeCheck = valueOne * valueSecond;
     if(operator == "/"){
         if(valueSecond == 0){
-            resultWindow.textContent = "Don't divide by 0 pls.";
+            resultWindow.textContent = "Pls don't";
             return;
         }
-        else resultWindow.textContent = valueOne / valueSecond;
+        else resultBeforeCheck = valueOne / valueSecond;
     }
+    let fixedDecimal = resultBeforeCheck.toFixed(3);
+    console.log(fixedDecimal.toString());
+    if(fixedDecimal.toString().length >= inputLimit){
+        resultWindow.textContent = resultBeforeCheck.toExponential(3);
+    }
+    else resultWindow.textContent = resultBeforeCheck.toFixed(3);
     lastResultWindow.textContent = valueOne + operator + valueSecond + "=";
 }
