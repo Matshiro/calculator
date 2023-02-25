@@ -2,6 +2,9 @@
     margin: 0;
     padding: 0;
 }
+body{
+    height: 100wh;   
+}
 main{
     background-image: url(./minikroliczki.jpg);
     display: flex;
